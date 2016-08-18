@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                <meu-painel class="painel-animado col-md-2" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
-                    <img class="img-responsive center-block" ng-src="{{foto.url}}" alt="{{foto.titulo}}">
+                   <minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
                </meu-painel>
             </div>
         </div>

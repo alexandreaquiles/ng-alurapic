@@ -8,4 +8,14 @@ angular.module('minhasDiretivas', [])
     };
     ddo.templateUrl = 'js/directives/meu-painel.html';
     return ddo;
+})
+.directive('minhaFoto', function(){
+    var ddo = {};
+    ddo.restrict = 'E';
+    ddo.scope = {
+        url: '@',
+        titulo: '@'
+    };
+    ddo.templateUrl = 'js/directives/minha-foto.html';
+    return ddo;
 });
