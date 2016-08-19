@@ -9,17 +9,17 @@
         <div class="form-group">
             <label>Título</label>
             <input name="titulo" class="form-control" ng-model="foto.titulo" required ng-maxlength="20">
-            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.titulo.$error.required">
+            <span class="form-control alert-danger" ng-show="formulario.titulo.$touched && formulario.titulo.$error.required">
                 Título obrigatório
             </span>
-            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.titulo.$error.maxlength">
+            <span class="form-control alert-danger" ng-show="formulario.titulo.$touched && formulario.titulo.$error.maxlength">
                 No máximo  20 caracteres!
             </span>
         </div>
         <div class="form-group">
             <label>URL</label>
             <input name="url" class="form-control" ng-model="foto.url" required>
-            <span class="form-control alert-danger" ng-show="formulario.$submitted && formulario.url.$error.required">
+            <span class="form-control alert-danger" ng-show="formulario.url.$touched && formulario.url.$error.required">
                 URL obrigatória
             </span>
         </div>
