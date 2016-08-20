@@ -1,16 +1,37 @@
-(function(){
-
 angular.module('fotosService', ['ngResource'])
 .factory('FotosResource', function($resource){
     var FotosResource = $resource('/v1/fotos/:fotoId', null, {
-        update: 'PUT'
+        update: { method: 'PUT' }
     });
     return FotosResource;
 })
 .factory('CadastroDeFotos', function(FotosResource, $q){
     return {
-        salvar: function(){
-            
+        salvar: function(foto){
+            return $q(function(resolve, reject){
+                console.log('tem id: ' + foto._id);
+                if(foto._id) {
+                    FotosResource.update({fotoId: foto._id}, foto, function(){
+                        resolve({
+                            mensagem: 'Foto alterada com sucesso!'
+                        });
+                    }, function(erro){
+                        reject({
+                            mensagem: 'Não  possível alterar a foto: ' + erro
+                        });
+                    });
+                } else {
+                    FotosResource.save(foto, function(){
+                        resolve({
+                            mensagem: 'Foto cadastrada com sucesso!'
+                        });
+                    }, function(erro){
+                        reject({
+                            mensagem: 'Não  possível cadastrar a foto: ' + erro
+                        })
+                    });
+                }
+            });
         },
         remover: function(foto){
             return $q(function(resolve, reject){
@@ -20,7 +41,7 @@ angular.module('fotosService', ['ngResource'])
                      });
                 }, function(erro) {
                      reject({
-                        mensagem: 'Não foi possível apagar a foto ' + foto.titulo
+                        mensagem: 'Não foi possível apagar a foto ' + foto.titulo + ': ' + erro
                      });
                 });
             });
@@ -33,15 +54,24 @@ angular.module('fotosService', ['ngResource'])
                     });
                 }, function(erro){
                     reject({
-                        erro: erro
+                        mensagem: 'Erro ao listar fotos: ' + erro
                     });
                 });
             });
         },
-        buscarPorId: function(){
-            
+        buscarPorId: function(fotoId){
+            return $q(function(resolve, reject){
+                FotosResource.get({fotoId: fotoId},
+                function(foto) {
+                    resolve({
+                        foto: foto
+                    });
+                }, function(erro) {
+                    reject({
+                        mensagem: 'Não foi possível obter a foto: ' + erro
+                    });
+                });
+            });
         }
     };
 });
-
-})();

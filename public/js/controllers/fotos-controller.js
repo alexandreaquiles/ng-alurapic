@@ -5,7 +5,7 @@ angular.module('alurapic')
         $scope.fotos = dados.fotos;
     })
     .catch(function(dados){
-        $scope.mensagem =  'Erro ao listar fotos:' + dados.erro;
+        $scope.mensagem =  dados.mensagem;
     });
 
     $scope.remover = function(foto){
@@ -16,7 +16,7 @@ angular.module('alurapic')
              $scope.mensagem = dados.mensagem;
         })
         .catch(function(dados){
-             $scope.mensagem = dados.erro;
+             $scope.mensagem = dados.mensagem;
         });
     };
 });
