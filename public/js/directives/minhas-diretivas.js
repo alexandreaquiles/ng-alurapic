@@ -28,4 +28,20 @@ angular.module('minhasDiretivas', [])
     }
     ddo.template = '<button class="btn btn-danger btn-block" ng-click="acao()">{{nome}}</button>';
     return ddo;
+})
+.directive('foco', function(){
+    var ddo = {};
+    ddo.restrict = 'A';
+    ddo.scope = {
+        focado: '='
+    };
+    ddo.link = function(scope, element) {
+        scope.$watch('focado', function(antigo, novo){
+            if(scope.focado){
+                element[0].focus();
+                scope.focado = false;
+            }
+        });
+    }
+    return ddo;
 });

@@ -1,4 +1,4 @@
-angular.module('alurapic').controller('FotoController', function($scope, $routeParams, FotosResource, CadastroDeFotos){
+angular.module('alurapic').controller('FotoController', function($scope, $routeParams, CadastroDeFotos){
     if($routeParams.fotoId){
         CadastroDeFotos.buscarPorId($routeParams.fotoId)
         .then(function(dados) {
@@ -14,6 +14,7 @@ angular.module('alurapic').controller('FotoController', function($scope, $routeP
             CadastroDeFotos.salvar(foto)
             .then(function(dados){
                 $scope.mensagem = dados.mensagem;
+                $scope.focado = true;
             })
             .catch(function(dados){
                 $scope.mensagem = dados.mensagem;
