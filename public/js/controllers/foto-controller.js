@@ -14,7 +14,7 @@ angular.module('alurapic').controller('FotoController', function($scope, $routeP
             CadastroDeFotos.salvar(foto)
             .then(function(dados){
                 $scope.mensagem = dados.mensagem;
-                $scope.focado = true;
+                $scope.$broadcast('fotoCadastrada');
             })
             .catch(function(dados){
                 $scope.mensagem = dados.mensagem;
