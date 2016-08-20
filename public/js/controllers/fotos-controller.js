@@ -1,18 +1,22 @@
 angular.module('alurapic')
-.controller('FotosController', function ($scope, FotosResource) {
-    FotosResource.query(function(fotos){
-        $scope.fotos = fotos;
-    }, function(erro){
-        console.log(erro);
+.controller('FotosController', function ($scope, CadastroDeFotos) {
+    CadastroDeFotos.listar()
+    .then(function(dados){
+        $scope.fotos = dados.fotos;
+    })
+    .catch(function(dados){
+        $scope.mensagem =  'Erro ao listar fotos:' + dados.erro;
     });
 
     $scope.remover = function(foto){
-        FotosResource.remove({fotoId: foto._id}, function() {
+        CadastroDeFotos.remover(foto)
+        .then(function(dados){
              var indiceDaFoto = $scope.fotos.indexOf(foto);
              $scope.fotos.splice(indiceDaFoto, 1);
-             $scope.mensagem =  ('Foto ' + foto.titulo + ' removida com sucesso!');
-        }, function(erro) {
-             $scope.mensagem = ('Não foi possível apagar a foto ' + foto.titulo);
+             $scope.mensagem = dados.mensagem;
+        })
+        .catch(function(dados){
+             $scope.mensagem = dados.erro;
         });
     };
 });
