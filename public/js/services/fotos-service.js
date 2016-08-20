@@ -9,7 +9,6 @@ angular.module('fotosService', ['ngResource'])
     return {
         salvar: function(foto){
             return $q(function(resolve, reject){
-                console.log('tem id: ' + foto._id);
                 if(foto._id) {
                     FotosResource.update({fotoId: foto._id}, foto, function(){
                         resolve({
